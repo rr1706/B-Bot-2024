@@ -63,25 +63,25 @@ public final class Constants {
     public static final class FrontLeft {
       public static final int kModuleID = 1;
       public static final double kOffset = Math.PI-0.15266667306423187;
-      public static final Translation2d kLocation = new Translation2d(kWheelBaseLength / 2, kWheelBaseWidth / 2);
+      public static final Translation2d kLocation = new Translation2d(11.625/39.37, 11.492/39.37);
     }
 
     public static final class FrontRight {
       public static final int kModuleID = 2;
       public static final double kOffset = 3*Math.PI-3.568241596221924;
-      public static final Translation2d kLocation = new Translation2d(kWheelBaseLength / 2, -kWheelBaseWidth / 2);
+      public static final Translation2d kLocation = new Translation2d(11.625/39.37, -11.492/39.37);
     }
 
     public static final class RearLeft {
       public static final int kModuleID = 4;
       public static final double kOffset = 2*Math.PI-2.6641688346862793;
-      public static final Translation2d kLocation = new Translation2d(-kWheelBaseLength / 2, kWheelBaseWidth / 2);
+      public static final Translation2d kLocation = new Translation2d(-6.375/39.37, 11.492/39.37);
     }
 
     public static final class RearRight {
       public static final int kModuleID = 3;
-      public static final double kOffset = 3*Math.PI-6.256606578826904;
-      public static final Translation2d kLocation = new Translation2d(-kWheelBaseLength / 2, -kWheelBaseWidth / 2);
+      public static final double kOffset = 2*Math.PI-6.256606578826904;
+      public static final Translation2d kLocation = new Translation2d(-6.375/39.37, -11.492/39.37);
     }
 
     public static final double kTransSlewRate = 12.0;
@@ -150,6 +150,6 @@ public final class Constants {
   }
 
   public static final class PivotConstants {
-    public static final double kP = 0.13;
+    public static final double kP = 0.25;
   }
 }

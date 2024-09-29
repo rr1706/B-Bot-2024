@@ -117,7 +117,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     if (fieldRelative) {
-      setModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, ahrs.getRotation2d()));
+      setModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getGyro()));
     } else {
       setModuleStates(new ChassisSpeeds(xSpeed, ySpeed, rot));
     }
@@ -163,6 +163,10 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Front Right Speed", m_FRModule.getDriveVelocity());
     SmartDashboard.putNumber("Rear Left Speed", m_RLModule.getDriveVelocity());
     SmartDashboard.putNumber("Rear Right Speed", m_RRModule.getDriveVelocity());    
+        SmartDashboard.putNumber("Front Left Position", m_FLModule.getDrivePosition());
+    SmartDashboard.putNumber("Front Right Position", m_FRModule.getDrivePosition());
+    SmartDashboard.putNumber("Rear Left Position", m_RLModule.getDrivePosition());
+    SmartDashboard.putNumber("Rear Right Position", m_RRModule.getDrivePosition());   
 
     updateOdometry();
 

@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.thethriftybot.ThriftyNova;
 import com.thethriftybot.ThriftyNova.CurrentType;
+import com.thethriftybot.ThriftyNova.EncoderType;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -39,10 +40,11 @@ public class SparkNovaSwerveModule extends SubsystemBase {
         m_driveMotor = new ThriftyNova(moduleID);
         m_driveMotor.setMaxCurrent(CurrentType.STATOR, (double)CurrentLimit.kDrive)
             .setMaxCurrent(CurrentType.SUPPLY, (double)CurrentLimit.kDrive);
-        m_driveMotor.setBrakeMode(false);
+        m_driveMotor.setBrakeMode(true);
         m_driveMotor.setInverted(false);
+        m_driveMotor.useEncoderType(EncoderType.INTERNAL);
         m_azimuthMotor = new CANSparkMax(moduleID + 10, MotorType.kBrushless);
-        m_azimuthMotor.restoreFactoryDefaults();
+        //m_azimuthMotor.restoreFactoryDefaults();
         m_azimuthMotor.setSmartCurrentLimit(CurrentLimit.kAzimuth);
         m_azimuthMotor.enableVoltageCompensation(GlobalConstants.kVoltageCompensation);
         m_azimuthMotor.setInverted(false);
@@ -52,7 +54,7 @@ public class SparkNovaSwerveModule extends SubsystemBase {
         m_azimuthEnc.setPositionConversionFactor(Aziumth.kPositionFactor);
         m_azimuthEnc.setVelocityConversionFactor(Aziumth.kVelocityFactor);
 
-        m_azimuthEnc.setZeroOffset(offset);
+        //m_azimuthEnc.setZeroOffset(offset);
 
         m_azimuthEnc.setInverted(true);
 

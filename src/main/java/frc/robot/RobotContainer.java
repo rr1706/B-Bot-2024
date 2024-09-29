@@ -11,6 +11,10 @@ import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -63,10 +67,28 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.leftTrigger().onTrue(new InstantCommand(()->m_shooter.run(40, 25)).alongWith(m_pivot.pitchCommand(32))).onFalse(new InstantCommand(()->m_shooter.stop()).alongWith(m_pivot.pitchCommand(5)));
+
+        m_driverController.pov(0).onTrue(
+                new InstantCommand(
+                        () -> {
+                            var alliance = DriverStation.getAlliance();
+                            if (alliance.isPresent() && alliance.get() == DriverStation.Alliance.Red) {
+                                m_drive
+                                        .resetOdometry(new Pose2d(new Translation2d(15.17, 5.55), new Rotation2d()));
+                            } else {
+                                m_drive.resetOdometry(
+                                        new Pose2d(new Translation2d(1.31, 5.55), new Rotation2d(Math.PI)));
+                            }
+                        }));
+        m_driverController.pov(180).onTrue(new InstantCommand(
+                () -> m_drive.resetOdometry(new Pose2d(new Translation2d(0.0, 0.0), new Rotation2d(Math.PI)))));
+
+    m_driverController.leftTrigger().onTrue(new InstantCommand(()->m_shooter.run(10.0, 25)).alongWith(m_pivot.pitchCommand(36))).onFalse(new InstantCommand(()->m_shooter.stop()).alongWith(m_pivot.pitchCommand(5)));
+    m_driverController.rightTrigger().onTrue(m_feeder.runCommand(0.8).alongWith(m_intake.runCommand(0.4)).alongWith(new WaitCommand(0.110).andThen(m_pivot.pitchCommand(24)))).onFalse(m_feeder.stopCommand().alongWith(m_intake.stopCommand()));
     m_driverController.leftBumper().onTrue(m_intake.runCommand(0.8).alongWith(m_feeder.runCommand(0.8))).onFalse(m_feeder.runCommand(-0.4).alongWith(new WaitCommand(0.090)).andThen(m_intake.stopCommand().alongWith(m_feeder.stopCommand())));
     m_driverController.rightBumper().onTrue(m_intake.runCommand(-0.8)).onFalse(m_intake.stopCommand());
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link RPobot} class.

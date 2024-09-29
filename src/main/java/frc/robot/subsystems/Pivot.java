@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CurrentLimit;
@@ -80,6 +81,9 @@ public class Pivot extends SubsystemBase{
         if (m_PIDEnabled) {
             m_pid.setReference(m_angle, ControlType.kPosition);
         }
+        SmartDashboard.putNumber("Pivot Pose", m_Encoder.getPosition());
+        SmartDashboard.putNumber("Pivot Desired", m_angle);
+
      }
     
  {
