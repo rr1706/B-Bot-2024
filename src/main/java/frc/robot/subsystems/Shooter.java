@@ -6,13 +6,15 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.units.Current;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.CurrentLimit;
 
 public class Shooter extends SubsystemBase {
 
-    private final TalonFX m_motor1 = new TalonFX(2,"rio");
-    private final TalonFX m_motor2 = new TalonFX(1,"rio");
+    private final TalonFX m_motor1 = new TalonFX(6,"rio");
+    private final TalonFX m_motor2 = new TalonFX(5,"rio");
 
     private double m_desiredSpin = 0.0;
 
@@ -26,16 +28,8 @@ public class Shooter extends SubsystemBase {
         configurePID();
         m_motor1.getConfigurator().apply(slot0Configs);
         m_motor2.getConfigurator().apply(slot0Configs);
-        m_motor1.getConfigurator().apply(new CurrentLimitsConfigs()
-                .withStatorCurrentLimit(100)
-                .withStatorCurrentLimitEnable(true)
-                .withSupplyCurrentLimit(60)
-                .withSupplyCurrentLimitEnable(true));
-        m_motor2.getConfigurator().apply(new CurrentLimitsConfigs()
-                .withStatorCurrentLimit(100)
-                .withStatorCurrentLimitEnable(true)
-                .withSupplyCurrentLimit(60)
-                .withSupplyCurrentLimitEnable(true));
+        m_motor1.getConfigurator().apply(CurrentLimit.kShooter);
+        m_motor2.getConfigurator().apply(CurrentLimit.kShooter);
 
         m_motor1.setNeutralMode(NeutralModeValue.Brake);
         m_motor2.setNeutralMode(NeutralModeValue.Brake);
