@@ -83,8 +83,10 @@ public class RobotContainer {
         m_driverController.pov(180).onTrue(new InstantCommand(
                 () -> m_drive.resetOdometry(new Pose2d(new Translation2d(0.0, 0.0), new Rotation2d(Math.PI)))));
 
-    m_driverController.leftTrigger().onTrue(new InstantCommand(()->m_shooter.run(10.0, 25)).alongWith(m_pivot.pitchCommand(36))).onFalse(new InstantCommand(()->m_shooter.stop()).alongWith(m_pivot.pitchCommand(5)));
-    m_driverController.rightTrigger().onTrue(m_feeder.runCommand(0.8).alongWith(m_intake.runCommand(0.4)).alongWith(new WaitCommand(0.110).andThen(m_pivot.pitchCommand(24)))).onFalse(m_feeder.stopCommand().alongWith(m_intake.stopCommand()));
+    m_driverController.a().onTrue(new InstantCommand(()->m_shooter.run(9.75, 25)).alongWith(m_pivot.pitchCommand(36))).onFalse(new InstantCommand(()->m_shooter.stop()).alongWith(m_pivot.pitchCommand(5)));
+    m_driverController.b().onTrue(m_feeder.runCommand(0.8).alongWith(m_intake.runCommand(0.4)).alongWith(new WaitCommand(0.110).andThen(m_pivot.pitchCommand(20)))).onFalse(m_feeder.stopCommand().alongWith(m_intake.stopCommand()));
+    m_driverController.leftTrigger().whileTrue(m_shooter.runCommand(50, 25).alongWith(m_pivot.angleCommand(30)));
+    m_driverController.rightTrigger().whileTrue(m_feeder.feed().alongWith(m_intake.feed()));
     m_driverController.leftBumper().onTrue(m_intake.runCommand(0.8).alongWith(m_feeder.runCommand(0.8))).onFalse(m_feeder.runCommand(-0.4).alongWith(new WaitCommand(0.090)).andThen(m_intake.stopCommand().alongWith(m_feeder.stopCommand())));
     m_driverController.rightBumper().onTrue(m_intake.runCommand(-0.8)).onFalse(m_intake.stopCommand());
   }

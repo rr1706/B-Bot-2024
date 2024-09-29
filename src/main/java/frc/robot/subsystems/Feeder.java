@@ -29,6 +29,10 @@ public class Feeder extends SubsystemBase {
         return runOnce(() -> run(speed));
     }
 
+    public Command feed(){
+        return runEnd(()->run(0.8), ()->stop());
+    }
+
     public void stop() {
         m_motor.stopMotor();
     }

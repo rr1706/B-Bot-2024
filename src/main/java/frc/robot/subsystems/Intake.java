@@ -33,6 +33,10 @@ public class Intake extends SubsystemBase {
         m_motor.stopMotor();
     }
 
+    public Command feed(){
+        return runEnd(()->run(0.8), ()->stop());
+    }
+
     public Command stopCommand(){
         return runOnce(()->stop());
     }

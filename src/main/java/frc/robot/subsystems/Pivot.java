@@ -88,5 +88,9 @@ public class Pivot extends SubsystemBase{
     
  {
     
- }   
+ }
+
+public Command angleCommand(double angle) {
+    return runEnd(()->pitchToAngle(angle), ()->pitchToAngle(5.0));
+}   
 }
