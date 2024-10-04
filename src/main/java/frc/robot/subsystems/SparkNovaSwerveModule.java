@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
@@ -26,9 +27,11 @@ import frc.robot.Constants.ModuleConstants.Drive;
  */
 public class SparkNovaSwerveModule extends SubsystemBase {
     private final CANSparkMax m_azimuthMotor;
-    private final ThriftyNova m_driveMotor;
+    private final CANSparkMax m_driveMotor;
     private final AbsoluteEncoder m_azimuthEnc;
     private final SparkPIDController m_azimuthPID;
+    private final SparkPIDController m_drivePID;
+    private final RelativeEncoder m_driveEnc;
 
     /**
      * Create a new FRC 1706 NEOKrakenSwerveModule Object
@@ -37,12 +40,25 @@ public class SparkNovaSwerveModule extends SubsystemBase {
      * @param offset   The offset for the analog encoder.
      */
     public SparkNovaSwerveModule(int moduleID, double offset) {
-        m_driveMotor = new ThriftyNova(moduleID);
+/*         m_driveMotor = new ThriftyNova(moduleID);
         m_driveMotor.setMaxCurrent(CurrentType.STATOR, (double)CurrentLimit.kDrive)
             .setMaxCurrent(CurrentType.SUPPLY, (double)CurrentLimit.kDrive);
         m_driveMotor.setBrakeMode(true);
         m_driveMotor.setInverted(false);
-        m_driveMotor.useEncoderType(EncoderType.INTERNAL);
+        m_driveMotor.useEncoderType(EncoderType.INTERNAL); */
+        m_driveMotor = new CANSparkMax(moduleID, MotorType.kBrushless);
+        m_driveMotor.setSmartCurrentLimit(CurrentLimit.kDrive);
+        m_driveMotor.enableVoltageCompensation(GlobalConstants.kVoltageCompensation);
+        m_driveMotor.setInverted(false);
+        m_driveMotor.setIdleMode(IdleMode.kBrake); 
+        m_driveEnc = m_driveMotor.getEncoder();
+        m_driveEnc.setPositionConversionFactor(Drive.kToMeters);
+        m_driveEnc.setVelocityConversionFactor(Drive.kToMeters/60.0);
+        m_drivePID = m_driveMotor.getPIDController();
+        m_drivePID.setP(Drive.kp);
+        m_drivePID.setFF(Drive.kf);
+
+
         m_azimuthMotor = new CANSparkMax(moduleID + 10, MotorType.kBrushless);
         //m_azimuthMotor.restoreFactoryDefaults();
         m_azimuthMotor.setSmartCurrentLimit(CurrentLimit.kAzimuth);
@@ -89,11 +105,11 @@ public class SparkNovaSwerveModule extends SubsystemBase {
     }
 
     public double getDriveVelocity() {
-        return m_driveMotor.getVelocity()/42.0 * Drive.kToMeters;
+        return m_driveEnc.getVelocity();
     }
 
     public double getDrivePosition() {
-        return m_driveMotor.getPosition()/42.0 * Drive.kToMeters;
+        return m_driveEnc.getPosition();
     }
 
     /**
@@ -103,10 +119,8 @@ public class SparkNovaSwerveModule extends SubsystemBase {
      */
     public void setDesiredState(SwerveModuleState desiredState) {
         SwerveModuleState state = SwerveModuleState.optimize(desiredState, new Rotation2d(getStateAngle()));
-        double metersToRotations = state.speedMetersPerSecond * Drive.kToRots;
 
-        m_driveMotor.setPercent(metersToRotations/96.0);
-
+        m_drivePID.setReference(state.speedMetersPerSecond, ControlType.kVelocity);
         m_azimuthPID.setReference(state.angle.getRadians(), ControlType.kPosition);
     }
 
@@ -115,7 +129,7 @@ public class SparkNovaSwerveModule extends SubsystemBase {
     }
 
     public void stop() {
-        m_driveMotor.setPercent(0.0);
+        m_driveMotor.stopMotor();
         m_azimuthMotor.stopMotor();
     }
 

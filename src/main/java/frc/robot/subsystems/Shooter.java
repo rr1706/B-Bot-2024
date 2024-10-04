@@ -74,8 +74,8 @@ public class Shooter extends SubsystemBase {
         if(velocity >= 100.0){
             velocity = 100.0;
         }
-        else if (velocity <= -10.0){
-            velocity = -10.0;
+        else if (velocity <= -20.0){
+            velocity = -20.0;
         }
         m_desriedVel = velocity;
         m_desiredSpin = spinDiff;
