@@ -196,7 +196,7 @@ public final class Constants {
     public static final double kTransSlewRate = 12.0;
     public static final double kRotSlewRate = 30.0;
 
-    public static final double kMaxSpeedMetersPerSecond = 5.2;
+    public static final double kMaxSpeedMetersPerSecond = 5.0;
     public static final double kMaxAngularSpeed = 2.0 * Math.PI;
     public static final double kMaxAngularAccel = 1.5 * Math.PI;
 

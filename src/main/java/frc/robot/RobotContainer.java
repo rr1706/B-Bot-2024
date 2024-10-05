@@ -9,6 +9,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 
 import frc.robot.Constants.Auto;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AutoShooterByPose;
 import frc.robot.commands.DriveByController;
 import frc.robot.commands.SmartShootByPose;
 import frc.robot.subsystems.Drivetrain;
@@ -65,12 +66,25 @@ public class RobotContainer {
     m_drive.setDefaultCommand(m_driveByController);
 
     configureAutoBuilder();
+    configureNamedCommands();
+
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
     configureBindings();
 
   }
+
+  private final Command m_teleInitCommand = new InstantCommand(() -> {
+    m_shooter.stop();
+    m_pivot.pitchToAngle(5.0);
+    m_poseEstimator.setAuto(false);
+});
+
+public Command getTeleInitCommand() {
+  return m_teleInitCommand;
+}
+
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be
@@ -135,6 +149,12 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return autoChooser.getSelected();
 
+  }
+
+  public void configureNamedCommands() {
+            NamedCommands.registerCommand("Auto Shooter",
+                new AutoShooterByPose(m_shooter, m_drive, m_pivot, m_poseEstimator::getPose));
+    NamedCommands.registerCommand("Feed", m_feeder.feed().alongWith(m_intake.feed()));
   }
 
   public void configureAutoBuilder() {
