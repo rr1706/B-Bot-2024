@@ -107,7 +107,7 @@ public class RobotContainer {
     m_driverController.pov(180).onTrue(new InstantCommand(
         () -> m_drive.resetOdometry(new Pose2d(new Translation2d(0.0, 0.0), new Rotation2d(Math.PI)))));
 
-    m_driverController.a().onTrue(new InstantCommand(() -> m_shooter.run(9.7, 20)).alongWith(m_pivot.pitchCommand(36)))
+    m_driverController.a().onTrue(new InstantCommand(() -> m_shooter.run(9.5, 20)).alongWith(m_pivot.pitchCommand(36)))
         .onFalse(new InstantCommand(() -> m_shooter.stop()).alongWith(m_pivot.pitchCommand(5)));
     m_driverController.b()
         .onTrue(m_feeder.runCommand(0.5).alongWith(m_intake.runCommand(0.4))

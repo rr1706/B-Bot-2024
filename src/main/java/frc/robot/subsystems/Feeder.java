@@ -13,6 +13,7 @@ public class Feeder extends SubsystemBase {
     private final CANSparkMax m_motor = new CANSparkMax(9, MotorType.kBrushless);
 
     public Feeder() {
+        m_motor.restoreFactoryDefaults();
         m_motor.setSmartCurrentLimit(CurrentLimit.kFeeder);
         m_motor.enableVoltageCompensation(GlobalConstants.kVoltageCompensation);
         m_motor.setIdleMode(IdleMode.kBrake);
