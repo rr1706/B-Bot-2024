@@ -98,7 +98,7 @@ public class SmartShootByPose extends Command {
         if (redAlliance) {
             goalLocation = GoalConstants.kRedGoal;
             if (getPose.get().getTranslation().getX() <= 4.0) {
-                goalLocation = GoalConstants.kMidFeed;
+                goalLocation = GoalConstants.kBlueFeed;
                 feedShot = true;
             } else if (getPose.get().getTranslation().getX() <= 9.0) {
 
@@ -108,7 +108,7 @@ public class SmartShootByPose extends Command {
         } else {
             goalLocation = GoalConstants.kBlueGoal;
             if (getPose.get().getTranslation().getX() >= 12.5) {
-                goalLocation = GoalConstants.kMidFeed;
+                goalLocation = GoalConstants.kBlueFeed;
                 feedShot = true;
             } else if (getPose.get().getTranslation().getX() >= 7.5) {
 
@@ -170,7 +170,7 @@ public class SmartShootByPose extends Command {
 
         double desiredTrans[] = MathUtils.inputTransform(xInput, yInput);
 
-        double maxLinear = DriveConstants.kMaxSpeedMetersPerSecond * 0.4;
+        double maxLinear = DriveConstants.kMaxSpeedMetersPerSecond * 0.3;
 
         desiredTrans[0] *= maxLinear;
         desiredTrans[1] *= maxLinear;
@@ -212,7 +212,7 @@ public class SmartShootByPose extends Command {
          * m_indexer.stop();
          * m_feeder.stop();
          */
-        m_pitcher.pitchToAngle(5.0);
+        m_pitcher.pitchToAngle(10.0);
     }
 
 }

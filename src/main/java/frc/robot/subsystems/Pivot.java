@@ -15,11 +15,11 @@ import frc.robot.Constants.CurrentLimit;
 import frc.robot.Constants.GlobalConstants;
 import frc.robot.Constants.PivotConstants;
 
-public class Pivot extends SubsystemBase{
+public class Pivot extends SubsystemBase {
     private final CANSparkMax m_motor = new CANSparkMax(6, MotorType.kBrushless);
     private final RelativeEncoder m_Encoder = m_motor.getEncoder();
     private final SparkPIDController m_pid = m_motor.getPIDController();
-    private double m_angle = 5.0;
+    private double m_angle = 10.0;
     private boolean m_PIDEnabled = true;
 
     public Pivot() {
@@ -35,7 +35,7 @@ public class Pivot extends SubsystemBase{
     }
 
     public void pitchToAngle(double angle) {
-        m_PIDEnabled = true; 
+        m_PIDEnabled = true;
         if (angle >= 36.0) {
             angle = 36.0;
         } else if (angle <= 1.0) {
@@ -46,51 +46,56 @@ public class Pivot extends SubsystemBase{
 
     public Command changePitch(double adjust) {
         return runOnce(() -> {
-            m_PIDEnabled = true; 
+            m_PIDEnabled = true;
             m_angle += adjust;
             if (m_angle >= 36.0) {
                 m_angle = 36.0;
-        } else if (m_angle <= 1.0) {
-            m_angle = 1.0;
-        }
+            } else if (m_angle <= 1.0) {
+                m_angle = 1.0;
+            }
         });
     }
 
-    public Command pitchCommand(double angle){
-        return runOnce(()->pitchToAngle(angle));
+    public Command pitchCommand(double angle) {
+        return runOnce(() -> pitchToAngle(angle));
     }
 
     public void stop() {
         m_motor.stopMotor();
     }
-     public void setZero() {
-        m_Encoder.setPosition(-0.4);
-     }
 
-     public void zero() {
+    public void setZero() {
+        m_Encoder.setPosition(-0.4);
+    }
+
+    public void zero() {
         m_PIDEnabled = false;
         m_motor.set(-0.1);
-     }
+    }
 
-     public double getCurrent() {
+    public double getCurrent() {
         return m_motor.getOutputCurrent();
-     }
+    }
 
-     @Override
-     public void periodic() {
+    @Override
+    public void periodic() {
         if (m_PIDEnabled) {
             m_pid.setReference(m_angle, ControlType.kPosition);
         }
         SmartDashboard.putNumber("Pivot Pose", m_Encoder.getPosition());
         SmartDashboard.putNumber("Pivot Desired", m_angle);
 
-     }
-    
- {
-    
- }
+    }
 
-public Command angleCommand(double angle) {
-    return runEnd(()->pitchToAngle(angle), ()->pitchToAngle(5.0));
-}   
+    {
+
+    }
+
+    public Command angleCommand(double angle) {
+        return runEnd(() -> pitchToAngle(angle), () -> pitchToAngle(10.0));
+    }
+
+    public double getSetPitch() {
+        return m_angle;
+    }
 }

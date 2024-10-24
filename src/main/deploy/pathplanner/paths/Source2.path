@@ -3,40 +3,62 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.112909566760645,
-        "y": 5.539225686154654
+        "x": 8.862273109161604,
+        "y": 0.779488482053888
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.35373103556477975,
-        "y": 5.644623215066687
+        "x": 7.924913542134776,
+        "y": 0.7794884820538881
       },
       "isLocked": false,
-      "linkedName": "1 END"
+      "linkedName": "SourceNote1"
     },
     {
       "anchor": {
-        "x": 2.754452527449989,
-        "y": 4.180768646843998
+        "x": 4.678689357378716,
+        "y": 1.3715050507024094
       },
       "prevControl": {
-        "x": 1.1734895937694858,
-        "y": 4.19247948338978
+        "x": 5.655516695648776,
+        "y": 0.8485570817295487
+      },
+      "nextControl": {
+        "x": 3.526235442749404,
+        "y": 1.9884753282312335
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.9554131415955156,
+        "y": 3.453429983783045
+      },
+      "prevControl": {
+        "x": 2.4684941677575676,
+        "y": 2.940348957620993
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "2 END"
+      "linkedName": "SourceShot2"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 2.0,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [
     {
       "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0,
-      "maxWaypointRelativePos": 1.0,
+      "minWaypointRelativePos": 1.5,
+      "maxWaypointRelativePos": 2.0,
       "constraints": {
-        "maxVelocity": 31.5,
-        "maxAcceleration": 3.0,
+        "maxVelocity": 0.5,
+        "maxAcceleration": 1.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0
       }
@@ -45,24 +67,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Auto Shooter"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.25,
+      "waypointRelativePos": 1.75,
       "command": {
         "type": "sequential",
         "data": {
@@ -86,14 +91,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 150.50702817689282,
+    "rotation": 129.80557109226518,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": -179.67159611184852,
+    "rotation": -178.87669728592465,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

@@ -48,7 +48,8 @@ public class AutoShooterByPose extends Command {
 
     @Override
     public void initialize() {
-
+        m_pitchFilter.reset(m_pitcher.getSetPitch());
+        m_velocityFilter.reset(m_shooter.getSetVelocity());
         m_timer.reset();
         m_timer.start();
     }
@@ -93,6 +94,8 @@ public class AutoShooterByPose extends Command {
 
     @Override
     public void end(boolean interrupted) {
+        m_shooter.stop();
+        m_pitcher.pitchToAngle(10.0);
         // TODO Auto-generated method stub
     }
 

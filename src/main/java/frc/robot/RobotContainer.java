@@ -77,7 +77,7 @@ public class RobotContainer {
 
   private final Command m_teleInitCommand = new InstantCommand(() -> {
     m_shooter.stop();
-    m_pivot.pitchToAngle(5.0);
+    m_pivot.pitchToAngle(10.0);
     m_poseEstimator.setAuto(false);
 });
 
@@ -122,7 +122,7 @@ public Command getTeleInitCommand() {
         () -> m_drive.resetOdometry(new Pose2d(new Translation2d(0.0, 0.0), new Rotation2d(Math.PI)))));
 
     m_driverController.a().onTrue(new InstantCommand(() -> m_shooter.run(9.5, 20)).alongWith(m_pivot.pitchCommand(36)))
-        .onFalse(new InstantCommand(() -> m_shooter.stop()).alongWith(m_pivot.pitchCommand(5)));
+        .onFalse(new InstantCommand(() -> m_shooter.stop()).alongWith(m_pivot.pitchCommand(10)));
     m_driverController.b()
         .onTrue(m_feeder.runCommand(0.5).alongWith(m_intake.runCommand(0.4))
             .alongWith(new WaitCommand(0.090).andThen(m_pivot.pitchCommand(26))))
@@ -137,7 +137,7 @@ public Command getTeleInitCommand() {
         .onTrue(new InstantCommand(() -> m_shooter.run(-20.0, 0)).alongWith(m_feeder.runCommand(-0.25))
             .alongWith(m_pivot.pitchCommand(26.0)))
         .onFalse(new InstantCommand(() -> m_shooter.stop()).alongWith(m_feeder.stopCommand())
-            .alongWith(m_pivot.pitchCommand(5.0)));
+            .alongWith(m_pivot.pitchCommand(10.0)));
     m_driverController.rightBumper().onTrue(m_intake.runCommand(-0.8)).onFalse(m_intake.stopCommand());
   }
 
@@ -155,6 +155,9 @@ public Command getTeleInitCommand() {
             NamedCommands.registerCommand("Auto Shooter",
                 new AutoShooterByPose(m_shooter, m_drive, m_pivot, m_poseEstimator::getPose));
     NamedCommands.registerCommand("Feed", m_feeder.feed().alongWith(m_intake.feed()));
+    NamedCommands.registerCommand("Kickback", m_feeder.runCommand(-0.4).alongWith(m_shooter.runCommand(-10.0, 0.0)).raceWith(new WaitCommand(0.070))
+            .andThen(m_intake.stopCommand().alongWith(new InstantCommand(() -> m_shooter.stop()))
+                .alongWith(m_feeder.stopCommand())));
   }
 
   public void configureAutoBuilder() {

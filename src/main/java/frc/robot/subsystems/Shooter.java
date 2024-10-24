@@ -13,8 +13,8 @@ import frc.robot.Constants.CurrentLimit;
 
 public class Shooter extends SubsystemBase {
 
-    private final TalonFX m_motor1 = new TalonFX(6,"rio");
-    private final TalonFX m_motor2 = new TalonFX(5,"rio");
+    private final TalonFX m_motor1 = new TalonFX(6, "rio");
+    private final TalonFX m_motor2 = new TalonFX(5, "rio");
 
     private double m_desiredSpin = 0.0;
 
@@ -71,18 +71,17 @@ public class Shooter extends SubsystemBase {
 
     public void run(double velocity, double spinDiff) {
         spinDiff = 0.01 * spinDiff * velocity;
-        if(velocity >= 100.0){
+        if (velocity >= 100.0) {
             velocity = 100.0;
-        }
-        else if (velocity <= -20.0){
+        } else if (velocity <= -20.0) {
             velocity = -20.0;
         }
         m_desriedVel = velocity;
         m_desiredSpin = spinDiff;
     }
 
-    public Command runCommand(double velocity, double spinDiff){
-        return runEnd(()->run(velocity, spinDiff), ()->stop());
+    public Command runCommand(double velocity, double spinDiff) {
+        return runEnd(() -> run(velocity, spinDiff), () -> stop());
     }
 
     public void stop() {
@@ -94,6 +93,10 @@ public class Shooter extends SubsystemBase {
 
     public boolean atSetpoint() {
         return Math.abs(m_motor1.getVelocity().getValueAsDouble() - m_desriedVel) <= 5.0;
+    }
+
+    public double getSetVelocity() {
+        return m_desriedVel;
     }
 
 }

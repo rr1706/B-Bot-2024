@@ -29,7 +29,7 @@ public final class Constants {
 
   public static final class ModuleConstants {
     public static final class Drive {
-      public static final double kGearRatio = (36.0 / 14.0) * (18.0 / 24.0) * (45.0 / 15.0);
+      public static final double kGearRatio = (36.0 / 14.0) * (16.0 / 24.0) * (45.0 / 15.0);
       public static final double kWheelDiameter = 0.0985;
       public static final double kToMeters = (1.0 / kGearRatio) * kWheelDiameter * Math.PI;
       public static final double kToRots = 1 / kToMeters;
@@ -82,28 +82,28 @@ public final class Constants {
     };
 
     public static final Point2D[] kPitchTable = {
-        new Point2D.Double(42.0, 20.0*1.5 + kPitchOffset),
-        new Point2D.Double(42.0 + 12.0, 19.0*1.5 + kPitchOffset),
-        new Point2D.Double(42.0 + 24.0, 18.0*1.5 + kPitchOffset),
-        new Point2D.Double(42.0 + 36.0, 15.0*1.5 + kPitchOffset),
-        new Point2D.Double(42.0 + 48.0, 14.0*1.5 + kPitchOffset),
-        new Point2D.Double(42.0 + 60.0, 12.8*1.5 + kPitchOffset),
-        new Point2D.Double(42.0 + 72.0, 12.0*1.5 + kPitchOffset),
-        new Point2D.Double(42.0 + 84.0, 11.5*1.5 + kPitchOffset),
-        new Point2D.Double(42.0 + 96.0, 10.4*1.5 + kPitchOffset),
-        new Point2D.Double(42.0 + 108.0, 9.5*1.5 + kPitchOffset),
-        new Point2D.Double(42.0 + 120.0, 8.70*1.5 + kPitchOffset),
-        new Point2D.Double(42.0 + 132.0, 8.05*1.5 + kPitchOffset),
-        new Point2D.Double(42.0 + 144.0, 7.45*1.5 + kPitchOffset),
-        new Point2D.Double(42.0 + 156.0, 6.6*1.5 + kPitchOffset),
-        new Point2D.Double(42.0 + 168.0, 6.5*1.5 + kPitchOffset),
-        new Point2D.Double(230.0, 5.85*1.5 + kPitchOffset),
-        new Point2D.Double(250.0, 5.26*1.5 + kPitchOffset),
-        new Point2D.Double(275.0, 4.90*1.5 + kPitchOffset),
-        new Point2D.Double(300.0, 4.61*1.5 + kPitchOffset),
-        new Point2D.Double(321.0, 4.20*1.5 + kPitchOffset),
-        new Point2D.Double(345.0, 4.15*1.5 + kPitchOffset),
-        new Point2D.Double(380.0, 3.95*1.5 + kPitchOffset)
+        new Point2D.Double(42.0, 20.0*1.47 + kPitchOffset),
+        new Point2D.Double(42.0 + 12.0, 19.0*1.47 + kPitchOffset),
+        new Point2D.Double(42.0 + 24.0, 18.0*1.47 + kPitchOffset),
+        new Point2D.Double(42.0 + 36.0, 15.0*1.47 + kPitchOffset),
+        new Point2D.Double(42.0 + 48.0, 14.0*1.47 + kPitchOffset),
+        new Point2D.Double(42.0 + 60.0, 12.8*1.47 + kPitchOffset),
+        new Point2D.Double(42.0 + 72.0, 12.0*1.47 + kPitchOffset),
+        new Point2D.Double(42.0 + 84.0, 11.5*1.47 + kPitchOffset),
+        new Point2D.Double(42.0 + 96.0, 10.4*1.47 + kPitchOffset),
+        new Point2D.Double(42.0 + 108.0, 9.5*1.47 + kPitchOffset),
+        new Point2D.Double(42.0 + 120.0, 8.70*1.47 + kPitchOffset),
+        new Point2D.Double(42.0 + 132.0, 8.05*1.47 + kPitchOffset),
+        new Point2D.Double(42.0 + 144.0, 7.45*1.47 + kPitchOffset),
+        new Point2D.Double(42.0 + 156.0, 6.6*1.47 + kPitchOffset),
+        new Point2D.Double(42.0 + 168.0, 6.5*1.47 + kPitchOffset),
+        new Point2D.Double(230.0, 5.85*1.47 + kPitchOffset),
+        new Point2D.Double(250.0, 5.26*1.47 + kPitchOffset),
+        new Point2D.Double(275.0, 4.90*1.47 + kPitchOffset),
+        new Point2D.Double(300.0, 4.61*1.47 + kPitchOffset),
+        new Point2D.Double(321.0, 4.20*1.47 + kPitchOffset),
+        new Point2D.Double(345.0, 4.15*1.47 + kPitchOffset),
+        new Point2D.Double(380.0, 3.95*1.47 + kPitchOffset)
     };
 
     public static final Point2D[] kVelocityTable = {
@@ -163,8 +163,8 @@ public final class Constants {
 
   public static final class DriveConstants {
 
-    public static final double kWheelBaseWidth = 0.5842;
-    public static final double kWheelBaseLength = 0.5334;
+    public static final double kWheelBaseWidth = 23.0/39.37;
+    public static final double kWheelBaseLength = 18.0/39.37;
     public static final double kWheelBaseRadius = 0.5
         * Math.sqrt(Math.pow(kWheelBaseLength, 2) + Math.pow(kWheelBaseWidth, 2));
     
@@ -172,31 +172,31 @@ public final class Constants {
     public static final class FrontLeft {
       public static final int kModuleID = 1;
       public static final double kOffset = Math.PI-0.15266667306423187;
-      public static final Translation2d kLocation = new Translation2d(11.625/39.37, 11.492/39.37);
+      public static final Translation2d kLocation = new Translation2d(9.000/39.37, 11.500/39.37);
     }
 
     public static final class FrontRight {
       public static final int kModuleID = 2;
       public static final double kOffset = 3*Math.PI-3.568241596221924;
-      public static final Translation2d kLocation = new Translation2d(11.625/39.37, -11.492/39.37);
+      public static final Translation2d kLocation = new Translation2d(9.000/39.37, -11.500/39.37);
     }
 
     public static final class RearLeft {
       public static final int kModuleID = 4;
       public static final double kOffset = 2*Math.PI-2.6641688346862793;
-      public static final Translation2d kLocation = new Translation2d(-6.375/39.37, 11.492/39.37);
+      public static final Translation2d kLocation = new Translation2d(-9.000/39.37, 11.500/39.37);
     }
 
     public static final class RearRight {
       public static final int kModuleID = 3;
       public static final double kOffset = 2*Math.PI-6.256606578826904;
-      public static final Translation2d kLocation = new Translation2d(-6.375/39.37, -11.492/39.37);
+      public static final Translation2d kLocation = new Translation2d(-9.000/39.37, -11.500/39.37);
     }
 
-    public static final double kTransSlewRate = 12.0;
+    public static final double kTransSlewRate = 16.0;
     public static final double kRotSlewRate = 30.0;
 
-    public static final double kMaxSpeedMetersPerSecond = 5.0;
+    public static final double kMaxSpeedMetersPerSecond = 5.6;
     public static final double kMaxAngularSpeed = 2.0 * Math.PI;
     public static final double kMaxAngularAccel = 1.5 * Math.PI;
 
@@ -211,7 +211,7 @@ public final class Constants {
     public static final SwerveDriveKinematics kSwerveKinematics = new SwerveDriveKinematics(FrontLeft.kLocation,
         FrontRight.kLocation, RearLeft.kLocation, RearRight.kLocation);
 
-    public static final double kRotTransFactor = 0.045;
+    public static final double kRotTransFactor = 0.085;
 /* 
     public static final class Auto {
 
@@ -245,7 +245,7 @@ public final class Constants {
                                                                                                     // likely live in
                                                                                                     // your
           // Constants class
-          new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
+          new PIDConstants(1.0, 0.0, 0.0), // Translation PID constants
           new PIDConstants(3.5, 0.0, 0.0), // Rotation PID constants
           4.8, // Max module speed, in m/s
           DriveConstants.kWheelBaseRadius, // D\[]rive base radius in meters. Distance from robot center to furthest
@@ -255,9 +255,9 @@ public final class Constants {
     }
 
   public static final class CurrentLimit {
-    public static final int kIntake = 40;
-    public static final int kFeeder = 40;
-    public static final int kPivot = 20;
+    public static final int kIntake = 60;
+    public static final int kFeeder = 60;
+    public static final int kPivot = 30;
     public static final int kDrive = 50;
     public static final int kAzimuth = 20;
 

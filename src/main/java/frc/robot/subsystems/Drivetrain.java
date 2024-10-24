@@ -287,7 +287,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void resetOdometry(Pose2d pose) {
     ahrs.reset();
-    ahrs.setAngleAdjustment(pose.getRotation().getDegrees());
+    ahrs.setAngleAdjustment(-1.0*pose.getRotation().getDegrees());
     updateKeepAngle();
     m_odometry.resetPosition(ahrs.getRotation2d().times(-1.0), getModulePositions(), pose);
     m_autoOdometry.resetPosition(ahrs.getRotation2d().times(-1.0), getModulePositions(), pose);
